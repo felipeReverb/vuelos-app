@@ -16,6 +16,7 @@ export const ButtonWrapper = ({
     color : "primary",
     fullWidth : true,
     onClick : handleSubmit,
+    
   }
   
   return (

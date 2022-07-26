@@ -34,8 +34,9 @@ const initialValues = {
 const validationSchema = Yup.object({
   origen: Yup.string().required("¡El origen es requerido!"),
   destino: Yup.string().required("¡El destino es requerido!"),
-  fechaIda: Yup.date().required("¡La fecha es requerida!"),
-  fechaVuelta: Yup.date().required("¡La fecha es requerida!"),
+  fechaIda: Yup.date().min(new Date(),"Porfavor elige una fecha a futuro").required("¡La fecha de ida es requerida!"),
+  fechaVuelta: Yup.date().min(new Date(),"Porfavor elige una fecha a futuro").min(Yup.ref("fechaIda"), "La fecha de vuelta debe ser mayor a la de ida"),
+
   adultos: Yup.string().required("¡El número de adultos es requerido!"),
   ninos: Yup.number().required("¡El número de niños es requerido!"),
 });
@@ -54,10 +55,10 @@ export const FlightSearchForm2 = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (values) => {
-    console.log(values);
-    //dispatch(value));
+    
     dispatch(fetchFlights(values));
   };
+  
 
   return (
     <>
@@ -149,7 +150,7 @@ export const FlightSearchForm2 = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <ButtonWrapper>Buscar</ButtonWrapper>
+                      <ButtonWrapper  >Buscar</ButtonWrapper>
                     </Grid>
                   </Grid>
                 </Form>
@@ -161,13 +162,15 @@ export const FlightSearchForm2 = () => {
                 <Typography variant="h2" align="center">
                   Cargando...
                 </Typography>
-              )}{" "}
+              )}
+
             </div>
-            <div className="flex flex-row flex-wrap	my-8 justify-center">
+            <div >
               {!isLoading &&
-                searchResults.map((offer, index) => (
+                searchResults?.map((offer, index) => (
                   <OfferItem key={index} {...offer} />
                 ))}
+                
             </div>
           </Container>
         </Grid>

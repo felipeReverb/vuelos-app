@@ -9,7 +9,7 @@ export const OfferItem = ({ id, lastTicketingDate, numberOfBookableSeats, price 
 
   
   const handleDetailsClick = (id) => {
-    navigate(`/details/${id}`);;  
+   navigate (`/details`);  
   }
 
   return (

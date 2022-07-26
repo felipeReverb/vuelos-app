@@ -28,11 +28,11 @@ export const fetchFlights = (params) => async (dispatch) => {
     
 
   try {
-    
+    dispatch(fetchFlightsStart());
     const responseToken = await apiCallGetToken();
     console.log(responseToken);
 
-    dispatch(fetchFlightsStart());
+    
 
     let queryString = "";
     if (params.fechaVuelta === "") {
@@ -56,7 +56,9 @@ export const fetchFlights = (params) => async (dispatch) => {
     const response = await apiCall(queryString, requestOptions);
     console.log("el data es: ", response);
     dispatch(fetchFlightsComplete(response?.data));
+    
   } catch (error) {
+    console.log("el error es: ", error);
     dispatch(fetchFlightsError(error));
   }
 };

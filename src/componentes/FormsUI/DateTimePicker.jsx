@@ -16,7 +16,8 @@ const [field, meta] = useField(name);
     ...otherprops,
     type: "date",
     variant: "outlined",
-    InputLabelProps: {
+    min: new Date().toISOString().slice(0, 16),
+        InputLabelProps: {
       shrink: true,
     },
   };
@@ -26,7 +27,7 @@ const [field, meta] = useField(name);
     configDateTimePcicker.helperText = meta.error;
     }
 
-  return <TextField {...configDateTimePcicker} />;
+  return <TextField {...configDateTimePcicker}  />;
 };
 
 export default DateTimePicker;
